@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "employee")
 @Data
 @NoArgsConstructor
-@DiscriminatorValue(value = "employee_type")
+//@DiscriminatorValue(value = "employee_type")
 public class Employee extends Person {
     @Column(name = "salary", columnDefinition = "DECIMAL(7,2)")
     private Double salary;

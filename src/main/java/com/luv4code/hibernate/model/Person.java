@@ -9,13 +9,11 @@ import javax.persistence.*;
 @Table(name = "person")
 @Data
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "record_type", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue(value = "person_type")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
