@@ -24,10 +24,7 @@ public class Student {
     @Column(name = "student_emiil")
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "student_course",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.EAGER)
     private List<Course> courseList = new ArrayList<>();
 
     public Student(String name, String email) {

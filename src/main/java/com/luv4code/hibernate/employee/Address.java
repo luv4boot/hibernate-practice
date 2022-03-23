@@ -29,6 +29,10 @@ public class Address {
     @Column(name = "state_name")
     private String state;
 
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
 
     public Address(String street, String city, Long pincode, String state) {
         this.street = street;

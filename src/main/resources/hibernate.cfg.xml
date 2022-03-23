@@ -13,8 +13,8 @@
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!--        <mapping class="com.luv4code.hibernate.employee.Employee"/>
-                <mapping class="com.luv4code.hibernate.employee.Address"/>-->
+        <!--<mapping class="com.luv4code.hibernate.employee.Employee"/>
+        <mapping class="com.luv4code.hibernate.employee.Address"/>-->
 
         <mapping class="com.luv4code.hibernate.student.Student"/>
         <mapping class="com.luv4code.hibernate.student.Course"/>

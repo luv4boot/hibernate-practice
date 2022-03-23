@@ -6,9 +6,9 @@ import org.hibernate.Session;
 
 public class StudentClientTest {
     public static void main(String[] args) {
-        createStudent();
+//        createStudent();
 //        getStudentCourseByStudentId();
-//        getStudentCourseByCourseId();
+        getStudentCourseByCourseId();
     }
 
 
@@ -16,6 +16,8 @@ public class StudentClientTest {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Student student = session.get(Student.class, 1L);
             System.out.println(student);
+            if (student != null)
+                student.getCourseList().forEach(System.out::println);
         }
     }
 
@@ -23,6 +25,9 @@ public class StudentClientTest {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Course course = session.get(Course.class, 1L);
             System.out.println(course);
+            if (course != null) {
+                System.out.println(course.getStudent());
+            }
         }
     }
 
@@ -42,6 +47,10 @@ public class StudentClientTest {
         Course hibernate = new Course("Hibernate", "3 months", 15000.00);
         student.getCourseList().add(java);
         student.getCourseList().add(hibernate);
+
+        java.setStudent(student);
+        hibernate.setStudent(student);
+
         return student;
     }
 

@@ -7,15 +7,18 @@ import java.util.Date;
 
 public class EmployeeClient {
     public static void main(String[] args) {
-        createEmployeeAndAddress();
+//        createEmployeeAndAddress();
 //        getEmployeeAndAddressByEmployeeId();
-//        getEmployeeAndAddressByAddressId();
+        getEmployeeAndAddressByAddressId();
     }
 
     private static void getEmployeeAndAddressByAddressId() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Address address = session.get(Address.class, 1L);
             System.out.println(address);
+            if (address != null) {
+                System.out.println(address.getEmployee());
+            }
         }
     }
 
@@ -23,6 +26,9 @@ public class EmployeeClient {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Employee employee = session.get(Employee.class, 1L);
             System.out.println(employee);
+            if (employee != null) {
+                employee.getAddressList().forEach(System.out::println);
+            }
         }
     }
 
@@ -41,6 +47,10 @@ public class EmployeeClient {
         Address officeAddress = new Address("XYX", "HYD", 500038L, "TS");
         employee.getAddressList().add(homeAddress);
         employee.getAddressList().add(officeAddress);
+
+        homeAddress.setEmployee(employee);
+        officeAddress.setEmployee(employee);
+
         return employee;
     }
 }

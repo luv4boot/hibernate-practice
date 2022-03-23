@@ -25,6 +25,10 @@ public class Course {
 
     @Column(name = "course_fee")
     private double fee;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
     
 
     public Course(String name, String duration, double fee) {
