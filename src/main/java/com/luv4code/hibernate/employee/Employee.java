@@ -5,9 +5,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -33,11 +31,10 @@ public class Employee {
     @Column(name = "salary")
     private Double salary;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "employee_address_table",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id"))
-    private List<Address> addressList = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     public Employee(String employeeName, String email, Date doj, Double salary) {
         this.employeeName = employeeName;

@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -31,8 +29,8 @@ public class Address {
     @Column(name = "state_name")
     private String state;
 
-    @ManyToMany(mappedBy = "addressList")
-    private List<Employee> employeeList = new ArrayList<>();
+    @OneToOne(mappedBy = "address")
+    private Employee employee;
 
 
     public Address(String street, String city, Long pincode, String state) {
