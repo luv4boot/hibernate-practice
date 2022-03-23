@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,9 +31,8 @@ public class Address {
     @Column(name = "state_name")
     private String state;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @ManyToMany(mappedBy = "addressList")
+    private List<Employee> employeeList = new ArrayList<>();
 
 
     public Address(String street, String city, Long pincode, String state) {
@@ -43,11 +44,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", pincode=" + pincode +
-                ", state='" + state + '\'' +
-                '}';
+        return "Address{" + "street='" + street + '\'' + ", city='" + city + '\'' + ", pincode=" + pincode + ", state='" + state + '\'' + '}';
     }
 }

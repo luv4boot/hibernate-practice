@@ -14,10 +14,10 @@ public class EmployeeClient {
 
     private static void getEmployeeAndAddressByAddressId() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Address address = session.get(Address.class, 1L);
+            Address address = session.get(Address.class, 3L);
             System.out.println(address);
             if (address != null) {
-                System.out.println(address.getEmployee());
+                address.getEmployeeList().forEach(System.out::println);
             }
         }
     }
@@ -35,22 +35,34 @@ public class EmployeeClient {
     private static void createEmployeeAndAddress() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Long id = (Long) session.save(getEmployee());
-            System.out.println("Employee created with id: " + id);
+            Employee employee1 = new Employee("Madhav", "madhav@gmail.com", new Date(), 50000.00);
+            Employee employee2 = new Employee("Kohli", "kohli@gmail.com", new Date(), 80000.00);
+
+            Address address1 = new Address("X-Street", "HYD", 500001L, "TS");
+            Address address2 = new Address("Y-Street", "CHN", 500300L, "TN");
+            Address address3 = new Address("Z-Street", "VSKP", 550001L, "AP");
+
+            employee1.getAddressList().add(address1);
+            employee1.getAddressList().add(address2);
+            employee1.getAddressList().add(address3);
+
+            address1.getEmployeeList().add(employee1);
+            address2.getEmployeeList().add(employee1);
+            address3.getEmployeeList().add(employee1);
+
+            employee2.getAddressList().add(address2);
+            employee2.getAddressList().add(address3);
+
+            address2.getEmployeeList().add(employee2);
+            address3.getEmployeeList().add(employee2);
+
+            session.persist(employee1);
+            session.persist(employee2);
+
             session.getTransaction().commit();
+
+
         }
     }
 
-    private static Employee getEmployee() {
-        Employee employee = new Employee("Madhav", "madhav@gmail.com", new Date(), 50000.00);
-        Address homeAddress = new Address("Main-Street", "SKLM", 532427L, "AP");
-        Address officeAddress = new Address("XYX", "HYD", 500038L, "TS");
-        employee.getAddressList().add(homeAddress);
-        employee.getAddressList().add(officeAddress);
-
-        homeAddress.setEmployee(employee);
-        officeAddress.setEmployee(employee);
-
-        return employee;
-    }
 }
