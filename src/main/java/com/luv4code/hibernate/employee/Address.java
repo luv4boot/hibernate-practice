@@ -29,8 +29,6 @@ public class Address {
     @Column(name = "state_name")
     private String state;
 
-    @OneToOne(mappedBy = "address")
-    private Employee employee;
 
     public Address(String street, String city, Long pincode, String state) {
         this.street = street;

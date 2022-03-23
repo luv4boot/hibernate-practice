@@ -25,9 +25,7 @@ public class Course {
 
     @Column(name = "course_fee")
     private double fee;
-
-    @OneToOne(mappedBy = "course")
-    private Student student;
+    
 
     public Course(String name, String duration, double fee) {
         this.name = name;

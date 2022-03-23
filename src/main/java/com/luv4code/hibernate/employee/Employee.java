@@ -1,12 +1,13 @@
 package com.luv4code.hibernate.employee;
 
-import com.luv4code.hibernate.employee.Address;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -32,9 +33,11 @@ public class Employee {
     @Column(name = "salary")
     private Double salary;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "employee_address_table",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id"))
+    private List<Address> addressList = new ArrayList<>();
 
     public Employee(String employeeName, String email, Date doj, Double salary) {
         this.employeeName = employeeName;
