@@ -7,15 +7,25 @@ import org.hibernate.Session;
 public class StudentClientTest {
     public static void main(String[] args) {
 //        createStudent();
-        getStudentById();
+//        getStudentCourseByStudentId();
+        getStudentCourseByCourseId();
     }
 
-    private static void getStudentById() {
+
+    private static void getStudentCourseByStudentId() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Student student = session.get(Student.class, 1L);
             System.out.println(student);
             Course course = student.getCourse();
             System.out.println(course);
+        }
+    }
+
+    private static void getStudentCourseByCourseId() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Course course = session.get(Course.class, 1L);
+            System.out.println(course);
+            System.out.println(course.getStudent());
         }
     }
 

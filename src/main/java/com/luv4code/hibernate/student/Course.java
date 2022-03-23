@@ -26,9 +26,22 @@ public class Course {
     @Column(name = "course_fee")
     private double fee;
 
+    @OneToOne(mappedBy = "course")
+    private Student student;
+
     public Course(String name, String duration, double fee) {
         this.name = name;
         this.duration = duration;
         this.fee = fee;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", duration='" + duration + '\'' +
+                ", fee=" + fee +
+                '}';
     }
 }
