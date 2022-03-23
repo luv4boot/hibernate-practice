@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Table(name = "person")
 @Data
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "record_type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue(value = "person_type")
 public class Person {
 
     @Id

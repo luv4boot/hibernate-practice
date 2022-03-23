@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Table(name = "employee")
 @Data
 @NoArgsConstructor
+@DiscriminatorValue(value = "employee_type")
 public class Employee extends Person {
     @Column(name = "salary", columnDefinition = "DECIMAL(7,2)")
     private Double salary;
