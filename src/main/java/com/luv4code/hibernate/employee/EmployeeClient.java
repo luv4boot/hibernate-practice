@@ -7,7 +7,8 @@ import java.util.Date;
 
 public class EmployeeClient {
     public static void main(String[] args) {
-        createEmployeeAndAddress();
+//        createEmployeeAndAddress();
+        deleteEmployeeAndAddressById();
     }
 
 
@@ -23,6 +24,17 @@ public class EmployeeClient {
             session.getTransaction().commit();
 
 
+        }
+    }
+
+    private static void deleteEmployeeAndAddressById() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Employee employee = session.get(Employee.class, 1L);
+            if (employee != null) {
+                session.beginTransaction();
+                session.delete(employee);
+                session.getTransaction().commit();
+            }
         }
     }
 
