@@ -11,10 +11,10 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="com.luv4code.hibernate.model.Person"/>
-        <mapping class="com.luv4code.hibernate.model.Employee"/>
-        <mapping class="com.luv4code.hibernate.model.Student"/>
+        <mapping class="com.luv4code.hibernate.grouping.Employee"/>
+        <mapping class="com.luv4code.hibernate.grouping.Department"/>
+
     </session-factory>
 </hibernate-configuration>

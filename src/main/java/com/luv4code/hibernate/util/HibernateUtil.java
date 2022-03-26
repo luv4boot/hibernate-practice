@@ -11,20 +11,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class HibernateUtil {
-    private static StandardServiceRegistry serviceRegistry;
     private static SessionFactory sessionFactory;
+    private static StandardServiceRegistry serviceRegistry;
 
     static {
-        try {
-            if (sessionFactory == null) {
-                serviceRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-                Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
-                sessionFactory = metadata.getSessionFactoryBuilder().build();
-            }
-        } catch (Exception e) {
-            if (serviceRegistry != null) {
-                StandardServiceRegistryBuilder.destroy(serviceRegistry);
-            }
+        if (sessionFactory == null) {
+            serviceRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+            Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
+            sessionFactory = metadata.getSessionFactoryBuilder().build();
+        } else if (serviceRegistry != null) {
+            StandardServiceRegistryBuilder.destroy(serviceRegistry);
         }
     }
 
@@ -32,8 +28,16 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    public static Date getDoj(String doj) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dateFormat.parse(doj);
+    public static Date getDob(String doj) throws ParseException {
+        Date date = null;
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            date = dateFormat.parse(doj);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
+
 }
